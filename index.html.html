@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة المعلم - مدرسة ذات الصواري</title>
+    <style>
+        :root { 
+            --primary: #2e7d32; 
+            --secondary: #fb8c00;
+            --bg-gradient: linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 100%);
+            --accent: #455a64;
+            --white: #ffffff;
+        }
+
+        body { 
+            background: var(--bg-gradient); 
+            background-attachment: fixed;
+            color: var(--accent); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 15px; 
+            direction: rtl; 
+        }
+
+        /* رأس الصفحة المطور */
+        .header { 
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px; 
+            border-radius: 25px; 
+            border: 3px solid var(--primary); 
+            text-align: center; 
+            margin-bottom: 25px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .school-name {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: left;
+        }
+
+        .manager-info { text-align: right; font-weight: 900; color: var(--accent); margin-bottom: 5px; }
+        
+        .main-title { 
+            font-size: 1.8rem; 
+            font-weight: 900; 
+            color: var(--primary);
+            margin: 15px 0; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .academic-year {
+            background: var(--secondary);
+            color: white;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .designer-info { color: #888; font-weight: bold; font-size: 0.8rem; margin-top: 10px; }
+
+        /* الأقسام */
+        .setup-section { 
+            background: var(--white); 
+            padding: 20px; 
+            border-radius: 20px; 
+            border-bottom: 5px solid var(--secondary);
+            margin-bottom: 20px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .input-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--primary); }
+        
+        select, input { 
+            width: 100%; 
+            padding: 14px; 
+            border-radius: 12px; 
+            border: 2px solid #e0e0e0; 
+            box-sizing: border-box; 
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        select:focus, input:focus { border-color: var(--secondary); outline: none; background: #fffcf5; }
+
+        /* بطاقات الطلاب */
+        .student-card { 
+            background: var(--white); 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 15px; 
+            border-right: 8px solid var(--primary);
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .student-card:hover { transform: scale(1.02); }
+
+        .abs-check { width: 25px; height: 25px; cursor: pointer; }
+
+        .submit-btn { 
+            background: linear-gradient(to left, #2e7d32, #43a047); 
+            color: white; 
+            border: none; 
+            padding: 18px; 
+            border-radius: 15px; 
+            width: 100%; 
+            font-size: 1.1rem;
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 20px; 
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+            transition: 0.3s;
+        }
+
+        .submit-btn:active { transform: scale(0.98); }
+
+        #liveClock { 
+            font-size: 1.2rem; 
+            color: #d32f2f; 
+            font-weight: 900; 
+            margin: 10px 0;
+            display: block; 
+        }
+
+        /* أيقونات توضيحية */
+        .icon-box { font-size: 1.5rem; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="school-name">مدرسة ذات الصواري للتعليم الأساسي (1-12)</div>
+    <div class="manager-info">مدير المدرسة: أ. مانع الزرعي</div>
+    <div class="main-title">نظام رصد الغياب الذكي 🤖</div>
+    <div class="academic-year">العام الدراسي: 2025 - 2026 م</div>
+    <div id="liveClock">جاري تحميل الوقت...</div> 
+    <div class="designer-info">إشراف وتصميم: أ. أنوار العريمية</div>
+</div>
+
+<div class="setup-section">
+    <div class="input-group">
+        <label>📅 تاريخ الرصد اليومي:</label>
+        <input type="date" id="attendanceDate">
+    </div>
+    <div class="input-group">
+        <label>👤 اسم المعلم/ة القائم بالرصد:</label>
+        <select id="teacherName">
+            <option value="">-- اختر الاسم من القائمة --</option>
+            <option>غدير السعديه</option><option>محمد الغيلاني</option><option>حسين</option><option>محمد السنيدي</option>
+            <option>اسماعيل</option><option>معتصم الحميدي</option><option>عذراء الحكمانيه</option><option>انجي</option>
+            <option>خالد النصيري</option><option>انوار العريمي</option><option>ناصر الزرعي</option><option>عيد حسن</option>
+            <option>زيون الزرعي</option><option>نوال الغيلاني</option><option>مصطفى كامل</option><option>وحيد ابو الفتوح</option>
+            <option>حسن عاطف</option><option>حاتم الروتلي</option><option>داليا</option><option>هناء</option>
+            <option>الزهراء العريمي</option><option>اسعد الساعدي</option><option>سلمى</option><option>غاده الزرعيه</option>
+            <option>ليالي الدرعيه</option><option>سليمة الحميديه</option><option>سعيد العويسي</option><option>عزيزه الزرعيه</option>
+            <option>شروق الكاسبيه</option><option>ميثاء الجعفريه</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <label>📂 اختيار الصف الدراسي:</label>
+        <select id="classSelect" onchange="renderStudents()">
+            <option value="">-- اختر الصف --</option>
+            <option>الصف الأول</option><option>الصف الثاني</option><option>الصف الثالث</option><option>الصف الرابع</option>
+            <option>الصف الخامس</option><option>الصف السادس</option><option>الصف السابع</option><option>الصف الثامن</option>
+            <option>الصف التاسع</option><option>الصف العاشر</option><option>الصف الحادي عشر</option><option>الصف الثاني عشر</option>
+        </select>
+    </div>
+</div>
+
+<div id="studentsList"></div>
+<button class="submit-btn" id="saveBtn" style="display:none;" onclick="saveData()">📤 إرسال كشف الغياب للإدارة</button>
+
+<script>
+    // تم الإبقاء على منطق البرمجة (JavaScript) الخاص بكِ كما هو لضمان عمل الربط مع Google Sheets
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpIZHXazrnszFghmpadVT0PbpWsFoY-W2ho07tQm4kCF9LvbaffX7BM3fJX7XDitHa/exec";
+    
+    function getCurrentTime() {
+        return new Date().toLocaleTimeString('ar-EG', {
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit',
+            hour12: true 
+        });
+    }
+
+    setInterval(() => {
+        document.getElementById('liveClock').innerText = "⏱ الوقت الآن: " + getCurrentTime();
+    }, 1000);
+
+    document.getElementById('attendanceDate').valueAsDate = new Date();
+    
+    // (بيانات الطلاب والصفوف تم الحفاظ عليها كما هي في كودك الأصلي)
+    const dataGroups = {
+        "الصف الأول": ["أحمد حمد الجديلي", "جاسم العبد العزري", "حمد بدر الوهيبي", "حمد سالم الوهيبي", "حور علي الوهيبية", "سالم حميد العويسي", "سالم سليم العويسي", "سالم شطيط العريمي", "سالم علي الوهيبي", "سلطان علي الزرعي", "سليم غاسي الزرعي", "سند حمد العامري", "عائشة حمد الوهيبية", "فاطمة حمد الوهيبية", "محمد مانع الزرعي", "محمد سليم الوهيبي", "محمد صقر الوهيبي", "محمد مهنا الزرعي", "محمد ناصر الوهيبي", "ناصر علي الوهيبي", "نشمی حميد الوهيبي", "نورة سعيد الجديلية", "هند جمعة الزرعية", "ود حمود سليمان", "ود فائل سعدون", "ود مالك الزرعية"],
+        "الصف الثاني": ["الريف سليم الوهيبية", "الريف هزاع الزرعية", "المزن فائل الغيلانية", "اليمامة حميد الوهيبية", "أسياد سعيد الوهيبية", "آية علي العامرية", "بدر جاسم الوهيبي", "حلا حمود الوهيبية", "حمد سعيد العريمي", "حمد شخبوط الغيلاني", "حمدان محمد الحجري", "حمود محمد الوهيبي", "حميد سالم الوهيبي", "خالد صبيح الوهيبي", "دانة محمد الزرعية", "سارة سالم الغيلانية", "سالم صبيح الزرعي", "سالم فائل الغيلاني", "سعيد عبيد العامري", "سعيد مسعد الوهيبي", "عبدالله سالم الوهيبي", "عبيد سليمان الوهيبي", "علي جاسم العزري", "محمد خميس العويسي", "مروان محمد الوهيبي", "مريم سالم الوهيبية", "مريم فائل العامرية"],
+        "الصف الثالث": ["الجوري حمود الوهيبية", "المزن حمدون الوهيبية", "أحمد سليم الوهيبي", "أميرة سعيد الوهيبية", "جاسم سالم الوهيبي", "جود جميل الوهيبية", "حمود الحميدي الوهيبي", "حنايا أحمد العريمية", "راضية سالم الزرعية", "رغد مانع الزرعية", "ريم حميد الزرعية", "سالم فائل الزرعي", "سعيد علي الوهيبي", "سلطان سعيد الجديلي", "سليم سليمان الوهيبي", "مريم أحمد العزرية", "مزنة خالد الوهيبية", "ياسر علي العامري"],
+        "الصف الرابع": ["أحمد شخبوط الغيلاني", "احمد محمد الوهيبي", "أسيل حميد الوهيبية", "الشيم حمدان العريمي", "المزن أحمد الوهيبي", "جود محمد الحجرية", "حمد بدر العزري", "حمد عبيد العامري", "حمد فائل الغيلاني", "حمد محمد الجديلي", "خميس غاسي الزرعي", "راشد حبيب الجعفري", "سعيد فائل العامري", "سيف عبيد الوهيبي", "ضياء علي الوهيبية", "عائشة حيد العويسية", "عبدالله العبد العزري", "علي حميد العريمي", "علي سالم الوهيبي", "علياء علي الوهيبية", "محمد علي الوهيبي", "محمد غنيم الوهيبي", "مسلم سالم العامري", "نصرى ناصر الوهيبية", "نضرة سدة الضاعنية", "نوف سعيد الوهيبية", "هاجر سليم الوهيبية", "وديمة حمد الجديلية", "وضحى سالم الوهيبية", "وهيبة محمد الوهيبية", "يوسف سليم العويسي"],
+        "الصف الخامس": ["أحمد خميس سالم العويسي", "أحمد هزاع صبيح الزرعي", "أنهار راشد سلطان الدرعية", "بدر muslim خليفة العامري", "جسام جاسم حديد الوهيبي", "حمده أحمد سالم الوهيبية", "سالم سعيد سالم الوهيبي", "سالمة سالم علي الغيلاني", "سلطان حميد جابر الوهيبي", "سلطان مسعد خليفة الوهيبي", "عامر حمدان بر الوهيبي", "عبدالله sليم سعيد الوهيبي", "عدي حمد سعيد العامري", "غلا حمدون جابر الوهيبية", "غياهيب جاسم عبيد العزرية", "مبارك محمد حمد الوهيبي", "محمد سعيد شطيط العريمي", "محمد شخبوط علي الغيلاني", "محمد غاسي محمد الوهيبي", "مريم حمد محمد الوهيبية", "نظرة مهنا حليس الزرعية", "يوسف سليم حمد الوهيبي"],
+        "الصف السادس": ["إفتخار بنت ناصر الوهيبية", "أريام بنت حميد العويسية", "أمياز بنت محمد الجديلية", "تقوى بنت سليمان الوهيبية", "جواهر بنت علي الوهيبية", "حمد بن جميل الوهيبي", "حميد بن خالد الوهيبي", "راشد بن علي العويسي", "ريف بنت عبيد العامرية", "سلامة بنت فائل الغيلانية", "سليمة بنت سعيد الوهيبية", "علياء بنت علي الوهيبية", "فاطمة بنت الحميدي الوهيبية", "مريم بنت زعل الضاعنية", "ملاذ بنت سليم العزرية", "منصور بن سعيد الجديلي", "نوره بنت حمد الوهيبية", "هيام بنت محمد الوهيبي"],
+        "الصف السابع": ["رحمة بنت غاسي الوهيبية", "سالم بن خميس العويسي", "سالم بن عبيد الوهيبي", "سعود بن فائل العامري", "سعيد بن sليم الوهيبي", "سلطان بن سالم الزرعي", "sلطان بن محمد الوهيبي", "عائشة بنت محمد العريمية", "عبدالله بن سالم الوهيبي", "عوافي بنت جاسم العزرية", "غزلان بنت محمد الحجرية", "نهيان بن مسعد الوهيبي", "محمد بن الحميدي الوهيبي", "مريم بنت حمد الوهيبية", "مياء بنت حمد الجديلية", "نصرى بنت سعيد الجديلية"],
+        "الصف الثامن": ["أريام بنت حمد بن محمد حمود الوهيبية", "أسيل بنت جاسم بن حديد علي الوهيبية", "العز بن فائل بن جابر علي الغيلني", "حسين بن علي بن حمد الصغير الوهيبي", "حمد بن ناصر بن حميد النخره الوهيبي", "حمود بن مهنا بن حليس الصغير الزرعي", "راشد بن صبيح بن محمد حمود الوهيبي", "رجاء بنت فايل بن سعيد دعيفيس الزرعية", "رفيف بنت عبيد بن سعيد حمد العامرية", "ريماس بنت سليمان بن sريجي حمد لوهيبية", "ريماس بنت شخبوط بن علي سالم الغيلنية", "سالمه بنت سالم بن خميس علي الزرعية", "سالمه بنت sليم بن حمد الصغير الوهيبية", "سجى بنت سعيد بن ناصر سعيد الوهيبية", "شموخ بنت muslim بن خليفه ضويعن العامرية", "غاسي بن علي بن غاسي علي العامري", "غزل بنت محمد بن سعيد محمد الحجرية", "فاطمة بنت سليمان بن sريجي حمد الوهيبية", "قيس بن سالم بن حليس الصغير الزرعي", "محمد بن حمد بن محمد جابر الوهيبي", "محمد بن حمدون بن حمد محمد الوهيبي", "محمد بن خالد بن زويد علي الوهيبي", "محمد بن هزاع بن صبيح خربوش الزرعي", "مروة بنت فايل بن سعيد دعيفيس الزرعية", "مريم بنت سالم بن علي الصغير الوهيبية", "مهرة بنت غاسي بن حليس الصغير الزرعية", "نور بنت مبروك بن عامر حمود العويسية", "هيام بنت حميد بن سالم نظيمه العويسية"],
+        "الصف التاسع": ["أريام بنت حميد بن جابر سعيد الوهيبية", "جواهر بنت خميس بن سالم نظيمه العويسية", "حمدان بن محمد بن سالم محمد الوهيبي", "حميد بن عبدالله بن سالم ماجد الوهيبي", "ريم بنت زعل بن سالم حمد الضاعنية", "سالم بن العبد بن عبيد sليم العزري", "sالم بن حمد بن sليم عبدالله الجديلي", "سالمه بنت الحميدي بن محمد حمود الوهيبية", "sلمه بنت سعيد بن دعيفيس صغير الزرعية", "صقر بن سالم بن محمد حمد الوهيبي", "علي بن عبيد بن علي الصغير الوهيبي", "فيافي بنت جاسم بن عبيد sليم العزرية", "محمد بن عبيد بن sليم علي الوهيبي", "محمود بن مهنا بن حليس الصغير الزرعي"],
+        "الصف العاشر": ["أحمد بن غاسي بن محمد حمود الوهيبي", "جسايم بنت جاسم بن حديد علي الوهيبي", "حاتم بن علي بن غاسي علي العامري", "حمدان بن محمد بن sليم عبدالله الجديلي", "حمود بن مبارك بن محمد حمود الوهيبي", "حور بنت غنيم بن محمد هلال العريمية", "ذياب بن حمدون بن جابر سعيد الوهيبي", "رهف بنت عبيد بن سعيد حمد العامرية", "ريم بنت حمد بن محمد حمود الوهيبية", "ريماس بنت سالم بن خليفه ضويعن العامرية", "سالم بن محمد بن حمود hرقوس الوهيبي", "سيف بن شخبوط بن علي سالم الغيلاني", "شموخ بنت محمد حمد الوهيبي", "فايز بن صبيح بن محمد حمود الوهيبي", "محمد بن سالم بن خميس علي الزرعي", "مشعل بن جابر علي الغيلاني", "نور بنت غنيم بن محمد هلال العريمية", "وجود بنت muslim بن خليفه ضويعن العامرية"],
+        "الصف الحادي عشر": ["أحمد بن حمدان بن محمد هلال العريمي", "أحمد بن سالم بن sريجي حمد الوهيبي", "حليس بن سالم بن حليس الصغير الزرعي", "sاره بنت عبيد بن sليم علي الوهيبية", "sالم بن حمدون بن جابر سعيد الوهيبي", "sالم بن فائل بن سالم sليم الغيلاني", "sنيدة بنت حميد بن جابر سعيد الوهيبية", "عبدالله بن حمد بن sليم عبدالله الجديلي", "عهود بنت زويد بن علي حميد الوهيبي", "فزاع بن فائل بن جابر علي الغيلاني", "محمد بن حمد بن عبدالله سالم الوهيبي", "مخلد بن جابر بن علي سالم الغيلاني", "مريم بنت سليمان بن sريجي حمد الوهيبي", "ناصر بن سعيد بن sليم عبدالله الجديلي", "هدى بنت حمد بن محمد الوهيبي"],
+        "الصف الثاني عشر": ["أطياب بنت عبيد بن علي الصغير الوهيبي", "الريم بنت سالم بن خليفه ضويعن العامرية", "الوسمي بن عبيد خربوش صغير الزرعي", "حمدان بن مبروك بن عامر حمود العويسي", "حميد بن سعيد بن دعيفيس صغير الزرعي", "خالد بن محمد بن سعيد الوهيبي", "راكان بن مبروك بن سلطان شامس الوهيبي", "صقر بن غاسي بن حليس الصغير الزرعي", "فارس بن sليم بن سالم علي العويسي", "فزاع بن سالم بن خميس علي الزرعي", "ماجد بن عبدالله بن سالم ماجد الوهيبي", "محمد بن حمدان بن جابر الوهيبي", "محمد بن مبروك بن حمود شامس الوهيبي", "هنيه بنت سالم بن محمد حمد الوهيبية"]
+    };
+
+    let flatList = [];
+    Object.keys(dataGroups).forEach(cls => {
+        dataGroups[cls].forEach(name => flatList.push({ name, cls }));
+    });
+
+    function renderStudents() {
+        const cls = document.getElementById('classSelect').value;
+        const listDiv = document.getElementById('studentsList');
+        listDiv.innerHTML = "";
+        if(!cls) { document.getElementById('saveBtn').style.display = "none"; return; }
+        document.getElementById('saveBtn').style.display = "block";
+        flatList.forEach((s, i) => {
+            if(s.cls === cls) {
+                listDiv.innerHTML += `
+                    <div class="student-card">
+                        <span>👤 ${s.name}</span>
+                        <input type="checkbox" class="abs-check" id="check_${i}">
+                    </div>`;
+            }
+        });
+    }
+
+    async function saveData() {
+        const teacher = document.getElementById('teacherName').value;
+        const cls = document.getElementById('classSelect').value;
+        const date = document.getElementById('attendanceDate').value;
+        const timeAtLog = getCurrentTime(); 
+
+        if(!teacher || !cls || !date) return alert("الرجاء إكمال جميع البيانات المطلوبة!");
+
+        const btn = document.getElementById('saveBtn');
+        btn.disabled = true;
+        btn.innerText = "⏳ جاري مزامنة البيانات مع السحابة...";
+
+        let db = [];
+        try {
+            const response = await fetch(SCRIPT_URL);
+            const text = await response.text();
+            db = JSON.parse(text);
+        } catch (e) { db = []; }
+
+        let day = db.find(e => e.d === date) || { d: date, a: [], notes: {}, logs: {} };
+        if(!day.logs) day.logs = {};
+        
+        day.logs[cls] = { teacher: teacher, time: timeAtLog };
+
+        flatList.forEach((s, i) => {
+            if(s.cls === cls) {
+                const sId = i.toString();
+                const isChecked = document.getElementById(`check_${i}`).checked;
+                if(isChecked && !day.a.includes(sId)) {
+                    day.a.push(sId);
+                } else if(!isChecked && day.a.includes(sId)) {
+                    day.a = day.a.filter(v => v !== sId);
+                }
+            }
+        });
+
+        const others = db.filter(e => e.d !== date);
+        others.push(day);
+
+        try {
+            await fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(others),
+                mode: 'no-cors'
+            });
+
+            alert(`✅ تم الرصد بنجاح!\nالمعلم: ${teacher}\nالصف: ${cls}\nالوقت: ${timeAtLog}`);
+            location.reload();
+        } catch (e) {
+            alert("حدث خطأ في الاتصال!");
+            btn.disabled = false;
+            btn.innerText = "📤 إرسال كشف الغياب للإدارة";
+        }
+    }
+</script>
+</body>
+</html>
